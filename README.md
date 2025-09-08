@@ -2,7 +2,7 @@
 
 [My Notes](notes.md)
 
-This is a website where women can interact with one another to build each other up and vote on favorite styles and outfits. Images of clothing items may be uploaded with questions on how to style them, and responses/comments are made and voted on. The creator of the image can then respond with their decided outfit to show off their style.
+This is a website where women can interact with one another to build each other up and vote on favorite styles and outfits. Images of clothing items may be uploaded with questions on how to style them, and responses/comments are made and voted on. The creator of the image can then respond with images of their decided outfit to show off their style.
 
 
 > [!NOTE]
