@@ -2,9 +2,6 @@
 
 [My Notes](notes.md)
 
-This is a website where women can interact with one another to build each other up and vote on favorite styles and outfits. Images of clothing items may be uploaded with questions on how to style them, and responses/comments are made and voted on. The creator of the image can then respond with images of their decided outfit to show off their style.
-
-
 > [!NOTE]
 >  This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
 
@@ -26,7 +23,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+This is a website where women can interact with one another to build each other up and vote on favorite styles and outfits. Images of clothing items may be uploaded with questions on how to style them, and responses/comments are made and voted on. The creator of the image can then respond with images of their decided outfit to show off their style. AI can also be consulted to give fashion and beauty advice.
+
 
 ### Design
 
