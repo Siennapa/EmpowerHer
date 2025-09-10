@@ -28,12 +28,16 @@ This is a website where women can interact with one another to build each other 
 
 ### Design
 
+####Home Design
 ![Home Design image](Startup_Design.png)
 
+####My Profile
 ![My Profile Design image](my_profile.png)
 
+####AI Advice
 ![AI Advice Design image](AI_Advice.png)
 
+####About Us
 ![About Us Design image](About_us.png)
 
 
