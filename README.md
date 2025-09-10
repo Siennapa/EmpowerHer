@@ -1,4 +1,4 @@
-# You're HER!
+# Her Style Circle
 A judgement-free platform for women to receive and give one another fashion advice!
 
 
