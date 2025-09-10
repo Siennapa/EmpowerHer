@@ -1,25 +1,16 @@
 # You're HER!
+A judgement-free platform for women to receive and give one another fashion advice!
 
-[My Notes](notes.md)
-
-> [!NOTE]
->  This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
-
-> [!NOTE]
->  If you are not familiar with Markdown then you should review the [documentation](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) before continuing.
 
 ## 🚀 Specification Deliverable
 
-> [!NOTE]
->  Fill in this sections as the submission artifact for this deliverable. You can refer to this [example](https://github.com/webprogramming260/startup-example/blob/main/README.md) for inspiration.
-
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] Proper use of Markdown
+- [x] A concise and compelling elevator pitch
+- [x] Description of key features
+- [x] Description of how you will use each technology
+- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
@@ -30,8 +21,6 @@ This is a website where women can interact with one another to build each other 
 
 #### Home Design
 ![Home Design image](Startup_Design.png)
-
-<img src="You-reHerStartup/startup_design.png" alt="Home Wireframe" width="600" />
 
 #### My Profile
 ![My Profile Design image](my_profile.png)
@@ -46,27 +35,124 @@ This is a website where women can interact with one another to build each other 
 
 ```mermaid
 sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
+    autonumber
+    actor U as User (Voter on Web)
+    participant FE as Frontend (React SPA)
+    participant API as Backend API (Express)
+    participant DB as Database
+    participant WS as WebSocket Server
+
+    U->>FE: Navigate to /post/:id in browser
+    FE->>API: GET /api/posts/:postId (details + responses + my votes)
+    API->>DB: Query post/responses/tallies/myVotes
+    DB-->>API: Rows
+    API-->>FE: 200 (post, responses, tallies, myVotes)
+
+    U->>FE: Drag & drop (or keyboard move) to rank top 3
+    FE->>API: POST /api/votes {postId, rankings:[r1,r2,r3]}
+    API->>DB: Upsert votes (rank=1..3) for user/post
+    DB-->>API: OK
+    API-->>FE: 200 (myVotes, new tallies)
+    API-->>WS: emit('tally:updated', {postId, tallies})
+
+    WS-->>FE: tally:updated (to all viewers of this post)
+    FE-->>U: Live tally updates without reload
+
+    U->>FE: Click "Lock in"
+    FE->>API: POST /api/votes/finalize {postId}
+    API->>DB: Mark user’s vote finalized
+    DB-->>API: OK
+    API-->>FE: 200 (finalized:true)
+    API-->>WS: emit('vote:finalized', {postId, userId})
+
 ```
+
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor C as Creator (Web)
+    participant FE as Frontend (React SPA)
+    participant API as Backend API
+    participant S3 as Object Storage (e.g., S3)
+    participant AI as AI Provider
+    participant DB as Database
+    participant WS as WebSocket
+
+    C->>FE: Start a new post and select images (file input/drag-drop)
+    FE->>API: POST /api/uploads/init {filename, mime}
+    API-->>FE: 200 {preSignedUrl, storageKey}
+    FE->>S3: PUT image bytes to preSignedUrl
+    FE->>API: POST /api/posts {title, question, imageKeys[]}
+    API->>DB: Insert post + images
+    DB-->>API: OK
+    API-->>FE: 201 {postId}
+    API-->>WS: emit('post:created', {postId})
+
+    C->>FE: Request AI advice (with prompt + image refs)
+    FE->>API: POST /api/ai/advice {postId, prompt, imageRefs[]}
+    API->>AI: Send prompt & references
+    AI-->>API: Advice JSON
+    API->>DB: Store advice
+    DB-->>API: OK
+    API-->>FE: 200 {advice}
+
+```
+
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- **Secure authentication over HTTPS**: register, login, logout
+- **Create style questions with images**: upload one or more images of clothing items and ask: "How would you style this?"
+- **Community responses with images**: respondents can upload inspo photos or outfit mockups with comments on how to style clothing items
+- **Ranked voting (top 3)**: the top three comments/responses with the most votes will be highlighted
+- **Realtime tallies**: as votes come in, everyone sees tallies update instantly (WebSocket)
+- **AI style and beauty advice**: optional AI suggestions
+- **Show the final look**: creator posts final outfit in response to their question
+- **Admin tools**: create/close/delete questions, moderate content, ban abuse
+- **Persistent results**: posts, responses, votes and AI suggestions are stored and queryable
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+**HTML**
+- Single HTML entry (index.html) for a React SPA (desktop-first layout; also responsive down to tablet/phone)
+- Semantic structure for header, nav, main, footer, accessible forms and labels
+- Web meta: viewport, Open Graph, and favicon to API/CDN
+
+**CSS** 
+- Desktop-first CSS Grid/Flex layout; breakouts for tablet/phone
+- Design tokens for color/spacing/typography; high contrast for readability
+- Hover/focus/active states; visible focus rings
+- Image handling: responsive max-width: 100%, object-fit, and a simple lightbox on desktop
+
+**React** 
+- Stack: React + react-router-dom
+- Routes: / (feed), /login, /register, /create, /post/:id, /profile, /admin
+- Components: Navbar, AuthForm, PostCard, PostDetail, ResponseCard, Top3Picker (HTML5 DnD + keyboard), TallyPanel, Uploader, AiAdvicePanel, AdminDashboard
+- Perf: code-split heavy views with React.lazy; prefetch data on hover for desktop
+- A11y: Proper ARIA for lists/cards, drag handles, live region updates on tally changes
+
+**Service** 
+- Stack
+- Security for browsers
+- Auth
+- Uploads
+- Posts/Responses
+- Voting
+- AI and public API: calls AI provider server-side and returns normalized tips
+
+**DB/Login** 
+- Postgres, MySQL, or MongoDB
+- Schema
+- Indexes
+- Tallies: compute on read or cache weighted scores
+
+**WebSocket**
+- Room per post: post:{postID}
+- Client subscribes when mounts, cleans up on unmount
+
 
 ## 🚀 AWS deliverable
 
