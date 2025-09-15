@@ -26,7 +26,7 @@ EmpowerHer is a supportive website for teen girls and young women to learn about
 ![Topic Circles Design image](Topic_Circles.png)
 
 #### Micro-Lessons & Exercises
-![Micro-Lessons Design image](Micro-Lessons_&_Exercises.png)
+![Micro-Lessons Design image](Micro-lessons_&_Exercises.png)
 
 #### Boundary Script Builder
 ![Boundary Script Builder Design image](Boundary_Script_Builder.png)
