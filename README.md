@@ -20,12 +20,12 @@ EmpowerHer is a supportive website for teen girls and young women to learn about
 ### Design
 
 #### Home Design
-![Home Design image](Startup_Design.png)
+![Home Design image](Home_Page.png)
 
-#### My Profile
-![My Profile Design image](my_profile.png)
+#### Topic Circles
+![Topic Circles Design image](Topic_Circles.png)
 
-#### AI Advice
+#### 
 ![AI Advice Design image](AI_Advice.png)
 
 #### About Us
