@@ -1,5 +1,5 @@
-# Her Style Circle
-A judgement-free platform for women to receive and give one another fashion advice!
+# EmpowerHer
+A platform for teen girls and young women to learn how to lead with confidence.
 
 
 ## 🚀 Specification Deliverable
@@ -14,7 +14,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-This is a website where women can interact with one another to build each other up and vote on favorite styles and outfits. Images of clothing items may be uploaded with questions on how to style them, and responses/comments are made and voted on. The creator of the image can then respond with images of their decided outfit to show off their style. AI can also be consulted to give fashion and beauty advice.
+EmpowerHer is a supportive website for teen girls and young women to learn about safety, boundaries, leadership, confidence, and mental wellness. Members read bite-size lessons, share real experiences in topic circles, and encourage each other with kind, constructive comments. Optional AI helps draft respectful boundary scripts and confidence prompts, while curated resources keep crisis help one click away. It’s a gentle, private, and uplifting space — education first, community always.
 
 
 ### Design
