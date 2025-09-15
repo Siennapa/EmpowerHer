@@ -41,67 +41,92 @@ EmpowerHer is a supportive website for teen girls and young women to learn about
 
 ```mermaid
 sequenceDiagram
-    autonumber
-    actor U as User (Voter on Web)
-    participant FE as Frontend (React SPA)
-    participant API as Backend API (Express)
-    participant DB as Database
-    participant WS as WebSocket Server
+  autonumber
+  actor U as Member
+  participant FE as Frontend (React)
+  participant API as Backend (Express)
+  participant DB as Database
+  participant WS as WebSocket
 
-    U->>FE: Navigate to /post/:id in browser
-    FE->>API: GET /api/posts/:postId (details + responses + my votes)
-    API->>DB: Query post/responses/tallies/myVotes
-    DB-->>API: Rows
-    API-->>FE: 200 (post, responses, tallies, myVotes)
+  U->>FE: Open /post/:id
+  FE->>API: GET /api/posts/:id
+  API->>DB: Fetch post + comments
+  DB-->>API: Rows
+  API-->>FE: 200 (post, comments)
+  FE->>WS: join post:{id}
 
-    U->>FE: Drag & drop (or keyboard move) to rank top 3
-    FE->>API: POST /api/votes {postId, rankings:[r1,r2,r3]}
-    API->>DB: Upsert votes (rank=1..3) for user/post
-    DB-->>API: OK
-    API-->>FE: 200 (myVotes, new tallies)
-    API-->>WS: emit('tally:updated', {postId, tallies})
-
-    WS-->>FE: tally:updated (to all viewers of this post)
-    FE-->>U: Live tally updates without reload
-
-    U->>FE: Click "Lock in"
-    FE->>API: POST /api/votes/finalize {postId}
-    API->>DB: Mark user’s vote finalized
-    DB-->>API: OK
-    API-->>FE: 200 (finalized:true)
-    API-->>WS: emit('vote:finalized', {postId, userId})
+  U->>FE: Submit comment
+  FE->>API: POST /api/posts/:id/comments {body}
+  API->>DB: Insert comment
+  DB-->>API: OK
+  API-->>FE: 201 (comment)
+  API-->>WS: emit comment:created {postId, comment}
+  WS-->>FE: broadcast to all in post:{id}
 
 ```
 
 
 ```mermaid
 sequenceDiagram
-    autonumber
-    actor C as Creator (Web)
-    participant FE as Frontend (React SPA)
-    participant API as Backend API
-    participant S3 as Object Storage (e.g., S3)
-    participant AI as AI Provider
-    participant DB as Database
-    participant WS as WebSocket
+  autonumber
+  actor U as Member
+  participant FE as React
+  participant API as Backend
+  participant AI as AI Provider
+  participant DB as Database
 
-    C->>FE: Start a new post and select images (file input/drag-drop)
-    FE->>API: POST /api/uploads/init {filename, mime}
-    API-->>FE: 200 {preSignedUrl, storageKey}
-    FE->>S3: PUT image bytes to preSignedUrl
-    FE->>API: POST /api/posts {title, question, imageKeys[]}
-    API->>DB: Insert post + images
-    DB-->>API: OK
-    API-->>FE: 201 {postId}
-    API-->>WS: emit('post:created', {postId})
+  U->>FE: Open Boundary Builder, fill scenario + tone
+  FE->>API: POST /api/ai/boundary {scenario, tone}
+  API->>AI: (optional) Generate non-clinical scripts
+  AI-->>API: Suggestions
+  API->>DB: Save suggestions (optional)
+  DB-->>API: OK
+  API-->>FE: 200 {scripts:[...], checklist:[...]}
 
-    C->>FE: Request AI advice (with prompt + image refs)
-    FE->>API: POST /api/ai/advice {postId, prompt, imageRefs[]}
-    API->>AI: Send prompt & references
-    AI-->>API: Advice JSON
-    API->>DB: Store advice
-    DB-->>API: OK
-    API-->>FE: 200 {advice}
+```
+
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant FE as React
+  participant API as Backend
+  participant EXT as Public APIs (Quotable/Wikipedia)
+
+  FE->>API: GET /api/affirmation
+  API->>EXT: Fetch affirmation
+  EXT-->>API: JSON
+  API-->>FE: 200 {text, author}
+
+  FE->>API: GET /api/spotlight/today
+  API->>EXT: Fetch leader summary
+  EXT-->>API: JSON
+  API-->>FE: 200 {name, summary, thumbnail}
+
+```
+
+
+```mermaid
+sequenceDiagram
+  autonumber
+  actor U as User
+  participant FE as Frontend (React)
+  participant API as Backend (Express)
+  participant EXT as Quotes API
+  participant DB as Database
+
+  U->>FE: POST /api/auth/login (email, password)
+  FE->>API: /api/auth/login
+  API-->>FE: 200 (set HTTP-only session cookie)
+
+  U->>FE: Redirect to /dashboard
+  FE->>API: GET /api/affirmation (with session cookie)
+  API->>DB: read recent user quote history (optional)
+  API->>EXT: fetch random inspirational quote (server-side)
+  EXT-->>API: quote JSON
+  API->>DB: save (user_id, quote_id/text_hash)
+  API-->>FE: 200 { text, author, id }
+  FE-->>U: Render Affirmation card (Save/Share actions)
 
 ```
 
