@@ -133,56 +133,50 @@ sequenceDiagram
 
 ### Key features
 
-- **Secure authentication over HTTPS**: register, login, logout
-- **Create style questions with images**: upload one or more images of clothing items and ask: "How would you style this?"
-- **Community responses with images**: respondents can upload inspo photos or outfit mockups with comments on how to style clothing items
-- **Ranked voting (top 3)**: the top three comments/responses with the most votes will be highlighted
-- **Realtime tallies**: as votes come in, everyone sees tallies update instantly (WebSocket)
-- **AI style and beauty advice**: optional AI suggestions
-- **Show the final look**: creator posts final outfit in response to their question
-- **Admin tools**: create/close/delete questions, moderate content, ban abuse
-- **Persistent results**: posts, responses, votes and AI suggestions are stored and queryable
+- **Topic Circles**: (Leadership, Confidence, Safety, Wellness) Post questions or experiences with optional pseudonym; threaded comments. Supportive discussions with clear community guidelines.
+- **Boundary Script Builder**: Templates give suggested scripts for different situations, such as relationships, the workplace, and family. Optional AI refines wording.
+- **Micro-Lessons & Exercises**: 3-5 minute reads (e.g., "How to say no," "Grounding 5-4-3-2-1").
+- **Affirmations & Leader Spotlight**: Daily encouragement and short bios of women leaders (auto-fetched). Share to circle or save to private journal with one click.
+- **Private Journal**: Personal reflections, optional mood tag; entries visible only to the user
+- **Community Safety**: Pseudonyms for sensitive posts, reporting, auto-hide at threshold, moderator queue, kind-language nudges before posting.
+
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
 **HTML**
-- Single HTML entry (index.html) for a React SPA (desktop-first layout; also responsive down to tablet/phone)
-- Semantic structure for header, nav, main, footer, accessible forms and labels
-- Web meta: viewport, Open Graph, and favicon to API/CDN
+- Single index.html (React SPA), semantic structure (header/nav/main/footer), accessible forms and labels, meta/OG tags
 
 **CSS** 
-- Desktop-first CSS Grid/Flex layout; breakouts for tablet/phone
-- Design tokens for color/spacing/typography; high contrast for readability
-- Hover/focus/active states; visible focus rings
-- Image handling: responsive max-width: 100%, object-fit, and a simple lightbox on desktop
+- Desktop-first Grid/Flex; responsive breakpoints; WCAG-AA contrast; visible focus rings; prefers-reduces-motion respected.
+- Subtle animations on card hover, comment appear, and checklist completion.
 
 **React** 
-- Stack: React + react-router-dom
-- Routes: / (feed), /login, /register, /create, /post/:id, /profile, /admin
-- Components: Navbar, AuthForm, PostCard, PostDetail, ResponseCard, Top3Picker (HTML5 DnD + keyboard), TallyPanel, Uploader, AiAdvicePanel, AdminDashboard
-- Perf: code-split heavy views with React.lazy; prefetch data on hover for desktop
-- A11y: Proper ARIA for lists/cards, drag handles, live region updates on tally changes
+- Routes: /, /login, /register, /circles/:id, /post/:id, /lessons, /journal, /profile, /admin
+- Components: Navbar, CircleList, PostCard, PostDetail, CommentList, BoundaryBuilder, AffirmationCard, LeaderSpotlightCard, LessonCard, JournalEditor, ReportButton, AdminQueue
+- State: Auth context (protected routes), optimistic comment posting, realtime updates via WebSocket (new comments/edits/auto-hide)
 
 **Service** 
-- Stack
-- Security for browsers
 - Auth
-- Uploads
-- Posts/Responses
-- Voting
-- AI and public API: calls AI provider server-side and returns normalized tips
+- Circles/Posts/Comments
+- Lessons/Journal
+- Admin
+- 3rd-party proxy endpoints (meets course "public API")
+- Boundary Builder (AI optional)
 
 **DB/Login** 
 - Postgres, MySQL, or MongoDB
 - Schema
 - Indexes
-- Tallies: compute on read or cache weighted scores
 
 **WebSocket**
-- Room per post: post:{postID}
-- Client subscribes when mounts, cleans up on unmount
+- Rooms: post:{postId}, circle:{circleId}
+- Server → client events:
+- comment:created {postId, comment}
+- comment:hidden {postId, commentId}
+- post:created {circleId, post}
+- presence:update {room, count} (optional; shows “12 viewing”), Client subscribes on page mount; unsubscribes on leave.
 
 
 ## 🚀 AWS deliverable
