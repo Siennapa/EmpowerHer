@@ -183,21 +183,21 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
+- [x] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
 
 ## 🚀 HTML deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - I created five pages (index.html, resources.html, topic_circles.html, login.html, and about.html) to represent the five main components of my startup.
+- [x] **Proper HTML element usage** - Each page includes HEADER, NAV, MAIN, and FOOTER tags to structure the content.
+- [x] **Links** - The shared navigation links connect between all pages.
+- [x] **Text** - I added brief, specific text on each page explaining its purpose (Helplines, articles, login, circles, etc.)
+- [x] **3rd party API placeholder** - I included an article/resource section that calls a public API as a placeholder.
+- [x] **Images** - I added a placeholder image as the logo.
+- [x] **Login placeholder** - I added a simple login form that saves and displays the users' name.
+- [x] **DB data placeholder** - The resources page will render a list of articles.
+- [x] **WebSocket placeholder** - The topic circles page shows simulated realtime data wher WebSocket updates will appear.
 
 ## 🚀 CSS deliverable
 
