@@ -21,6 +21,10 @@ header {
   text-align: left;
 }
 
+h2 {
+  text-align: center;
+}
+
 footer {
     background-color: var(--secondary-color);
     color: white;
@@ -76,6 +80,7 @@ button {
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s;
+    margin-bottom: 3rem;
 }
 button:hover {
   background-color: var(--primary-color);
