@@ -25,6 +25,20 @@ h2 {
   text-align: center;
 }
 
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
+hr {
+  border: none;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+  margin: 1 rem 0;
+}
+
 footer {
     background-color: var(--secondary-color);
     color: white;
