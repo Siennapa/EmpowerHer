@@ -1,0 +1,82 @@
+:root {
+  --primary-color: #7e57c2
+  --secondary-color: #f06292
+  --accent-color: #fbc02d;
+  --background-color: #fafafa;
+  --text-color: #333333;
+}
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+  background-color: var(--primary-color);
+  color: #fafafa;
+  padding: 1rem;
+  text-align: center;
+}
+
+footer {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+footer a {
+  color: var(--accent-color);
+  font-weight: bold;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline
+}
+
+.quote {
+  background-color: #ede7f6;
+  padding: 1.5rem;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+  max-width: 600px;
+  text-align: center;
+  font-style: italic;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.resources ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.resources li {
+    background: #fff;
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: background 0.3s;
+}
+.resources li:hover {
+  background: var(--secondary-color);
+  color: white;
+}
+
+button {
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 0.75rem 1.25rem;
+  color: white;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+button:hover {
+  background-color: var(--primary-color);
+}
