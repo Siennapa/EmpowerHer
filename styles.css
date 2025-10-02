@@ -1,9 +1,9 @@
 :root {
-  --primary-color: #7e57c2;
-  --secondary-color: #f06292;
-  --accent-color: #fbc02d;
-  --background-color: #fafafa;
-  --text-color: #333333;
+  --primary-color: #00897b;
+  --secondary-color: #ff7043;
+  --accent-color: #fdd835;
+  --background-color: #e0f2f1;
+  --text-color: #263238;
 }
 
 body {
@@ -39,7 +39,7 @@ footer a:hover {
 }
 
 .quote {
-  background-color: #ede7f6;
+  background-color: #b2dfdb;
   padding: 1.5rem;
   margin: 1.5rem auto;
   border-radius: 8px;
